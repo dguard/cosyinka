@@ -1,0 +1,1048 @@
+<html><head>
+
+    <style>
+        .game-board {
+            display: flex;
+            overflow-y: auto;
+        }
+
+        .deck-place {
+            position: relative;
+            width: 200px;
+            height: 250px;
+
+            margin-right: 40px;
+        }
+        .card {
+            width: 200px;
+            height: 250px;
+            background: lightblue;
+            margin-bottom: 10px;
+        }
+        .clovers-a.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+        }
+        .clovers-2.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: -74px 0;
+        }
+        .clovers-3.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*2) 0;
+        }
+        .clovers-4.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*3) 0;
+        }
+        .clovers-5.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*4) 0;
+        }
+        .clovers-6.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*5) 0;
+        }
+        .clovers-7.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*6) 0;
+        }
+        .clovers-8.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*7) 0;
+        }
+        .clovers-9.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*8) 0;
+        }
+        .clovers-10.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*9) 0;
+        }
+        .clovers-j.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            /*background-position: calc(-74px*(9+1)) 0;
+            */background-position: calc(-74px*10) 0;
+        }
+        .clovers-q.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*11) 0;
+        }
+        .clovers-k.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*12) 0;
+        }
+        .hearts-a.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: 0 calc(-116px*2 + 2px);
+        }
+        .hearts-2.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: -74px calc(-116px*2 + 2px);
+        }
+        .hearts-3.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*2) calc(-116px*2 + 2px);
+        }
+        .hearts-4.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*3) calc(-116px*2 + 2px);
+        }
+        .hearts-5.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*4) calc(-116px*2 + 2px);
+        }
+        .hearts-6.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*5) calc(-116px*2 + 2px);
+        }
+        .hearts-7.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*6) calc(-116px*2 + 2px);
+        }
+        .hearts-8.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*7) calc(-116px*2 + 2px);
+        }
+        .hearts-9.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*8) calc(-116px*2 + 2px);
+        }
+        .hearts-10.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*9) calc(-116px*2 + 2px);
+        }
+        .hearts-j.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*10) calc(-116px*2 + 2px);
+        }
+        .hearts-q.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*11) calc(-116px*2 + 2px);
+        }
+        .hearts-k.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*12) calc(-116px*2 + 2px);
+        }
+        .tiles-a.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: 0 calc(-116px*1 + 2px);
+        }
+        .tiles-2.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: -74px calc(-116px*1 + 2px);
+        }
+        .tiles-3.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 2) calc(-116px*1 + 2px);
+        }
+        .tiles-4.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 3) calc(-116px*1 + 2px);
+        }
+        .tiles-5.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 4) calc(-116px*1 + 2px);
+        }
+        .tiles-6.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 5) calc(-116px*1 + 2px);
+        }
+        .tiles-7.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 6) calc(-116px*1 + 2px);
+        }
+        .tiles-8.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 7) calc(-116px*1 + 2px);
+        }
+        .tiles-9.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 8) calc(-116px*1 + 2px);
+        }
+        .tiles-10.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 9) calc(-116px*1 + 2px);
+        }
+        .tiles-j.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 10) calc(-116px*1 + 2px);
+        }
+        .tiles-q.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 11) calc(-116px*1 + 2px);
+        }
+        .tiles-k.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px * 12) calc(-116px*1 + 2px);
+        }
+        .spikes-a.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: 0 calc(-116px*3 + 2px);
+        }
+        .spikes-2.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: -74px calc(-116px*3 + 2px);
+        }
+        .spikes-3.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*2) calc(-116px*3 + 2px);
+        }
+        .spikes-4.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*3) calc(-116px*3 + 2px);
+        }
+        .spikes-5.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*4) calc(-116px*3 + 2px);
+        }
+        .spikes-6.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*5) calc(-116px*3 + 2px);
+        }
+        .spikes-7.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*6) calc(-116px*3 + 2px);
+        }
+        .spikes-8.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*7) calc(-116px*3 + 2px);
+        }
+        .spikes-9.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*8) calc(-116px*3 + 2px);
+        }
+        .spikes-10.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*9) calc(-116px*3 + 2px);
+        }
+        .spikes-j.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*10) calc(-116px*3 + 2px);
+        }
+        .spikes-q.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*11) calc(-116px*3 + 2px);
+        }
+        .spikes-k.opened {
+            background-image: url(img/card-deck-161536_960_720.png);
+            background-repeat: no-repeat;
+            width: 74px;
+            height: 116px;
+            background-position: calc(-74px*12) calc(-116px*3 + 2px);
+        }
+        .sandbox {
+            display: block;
+            margin-top: 80px;
+        }
+        .place-for-card-doubled {
+            width: 250px;
+            height: 400px;
+            background: yellow;
+            /*margin-left: 900px;*/
+            margin-right: 20px;
+        }
+        .place-for-card {
+            width: 250px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .place-for-card > .card {
+            margin-bottom: 10px;
+            border: 1px solid;
+        }
+        .game-zone {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 400px;
+        }
+        .place-for-card-doubled .place-for-card {
+            position: relative;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(1) {
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(2) {
+            position: absolute;
+            top: 20px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(3) {
+            position: absolute;
+            top: 40px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(4) {
+            position: absolute;
+            top: 60px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(5) {
+            position: absolute;
+            top: 80px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(6) {
+            position: absolute;
+            top: 100px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(7) {
+            position: absolute;
+            top: 120px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(8) {
+            position: absolute;
+            top: 140px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(9) {
+            position: absolute;
+            top: 160px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(10) {
+            position: absolute;
+            top: 180px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(11) {
+            position: absolute;
+            top: 200px;
+        }
+        .place-for-card-doubled .place-for-card .card:nth-child(12) {
+            position: absolute;
+            top: 220px;
+        }
+
+        .deck-place .card {
+            border: 1px solid;
+        }
+        .deck-place .card:nth-child(1) {
+        }
+        .deck-place .card:nth-child(2) {
+            position: absolute;
+            top: 20px;
+        }
+        .deck-place .card:nth-child(3) {
+            position: absolute;
+            top: 40px;
+        }
+        .deck-place .card:nth-child(4) {
+            position: absolute;
+            top: 60px;
+        }
+        .deck-place .card:nth-child(5) {
+            position: absolute;
+            top: 80px;
+        }
+        .deck-place .card:nth-child(6) {
+            position: absolute;
+            top: 100px;
+        }
+        .deck-place .card:nth-child(7) {
+            position: absolute;
+            top: 120px;
+        }
+        .deck-place .card:nth-child(8) {
+            position: absolute;
+            top: 140px;
+        }
+        .deck-place .card:nth-child(9) {
+            position: absolute;
+            top: 160px;
+        }
+        .deck-place .card:nth-child(10) {
+            position: absolute;
+            top: 180px;
+        }
+        .deck-place .card:nth-child(11) {
+            position: absolute;
+            top: 200px;
+        }
+        .deck-place .card:nth-child(12) {
+            position: absolute;
+            top: 220px;
+        }
+        .deck-place .card:nth-child(13) {
+            position: absolute;
+            top: calc(220px + 20px);
+        }
+        .deck-place .card:nth-child(14) {
+            position: absolute;
+            top: calc(220px + 40px);
+        }
+        .deck-place .card:nth-child(15) {
+            position: absolute;
+            top: calc(220px + 60px);
+        }
+        .deck-place .card:nth-child(16) {
+            position: absolute;
+            top: calc(220px + 80px);
+        }
+        .deck-place .card:nth-child(17) {
+            position: absolute;
+            top: calc(220px + 100px);
+        }
+        .deck-place .card:nth-child(18) {
+            position: absolute;
+            top: calc(220px + 120px);
+        }
+        .deck-place .card:nth-child(19) {
+            position: absolute;
+            top: calc(220px + 140px);
+        }
+    </style>
+
+</head><body>
+<!--
+ markup changed
+-->
+<!--
+  visual style presented vs constructed by engine
+
+  visual style presented first -> then pack into constructed by engine ==== packed visual style
+  entire range cards is not used
+-->
+<!--
+    interaction first ==== keep
+    then object based programming ==== keep alongside with interaction first
+-->
+
+<!--
+    -> doubled emitters
+-->
+
+<!--
+    doubled container (first has name)
+    second contains markup
+-->
+
+<div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div class="game-board">
+        <div class="deck-place">
+            <div class="card"></div>
+            <div class="card"></div>
+
+        </div>
+
+        <div class="game-zone">
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+            <div class="place-for-card-doubled">
+                <div class="place-for-card"></div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="sandbox">
+        <div class="card">
+            <div class="clovers-a opened"></div>
+        </div>
+<!--        <div class="card">-->
+<!--            <div class="clovers-2 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-3 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-4 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-5 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-6 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-7 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-8 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-9 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-10 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-j opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-q opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="clovers-k opened"></div>-->
+<!--        </div>-->
+
+        <div class="card">
+            <div class="hearts-a opened"></div>
+        </div>
+<!--        <div class="card">-->
+<!--            <div class="hearts-2 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-3 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-4 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-5 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-6 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-7 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-8 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-9 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-10 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-j opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-q opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="hearts-k opened"></div>-->
+<!--        </div>-->
+
+        <div class="card">
+            <div class="tiles-a opened"></div>
+        </div>
+
+<!--        <div class="card">-->
+<!--            <div class="tiles-2 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-3 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-4 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-5 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-6 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-7 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-8 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-9 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-10 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-j opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-q opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="tiles-k opened"></div>-->
+<!--        </div>-->
+
+        <div class="card">
+            <div class="spikes-a opened"></div>
+        </div>
+<!--        <div class="card">-->
+<!--            <div class="spikes-2 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-3 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-4 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-5 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-6 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-7 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-8 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-9 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-10 opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-j opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-q opened"></div>-->
+<!--        </div>-->
+<!--        <div class="card">-->
+<!--            <div class="spikes-k opened"></div>-->
+<!--        </div>-->
+    </div>
+
+</div>
+
+<script>
+
+    setTimeout(() => {
+        let cosyinkaAlgo = new CosyinkaAlgo()
+
+        // cosyinkaAlgo.constructDeck()
+        // cosyinkaAlgo.shuffleDeck()
+        cosyinkaAlgo.constructDeckFromTiles()
+
+        cosyinkaAlgo.spreadCardsBetweenCols()
+        cosyinkaAlgo.allocateCardsInCols()
+
+        cosyinkaAlgo.allocateCards()
+        cosyinkaAlgo.assignEvents()
+    }, 100)
+
+</script>
+<script>
+
+    let CosyinkaAlgo = function () {
+        const RandomLib = Math
+        const roundingFn = Math.floor
+        const NOT_FOUND_POINTER = -1
+
+        let suits = ["clovers", "hearts", "tiles", "spikes"]
+        let values = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k']
+
+        // 1st depth fn
+        this.generateRandomNumber = function (startsFrom, closesAt) {
+            return roundingFn(RandomLib.random() * (Math.abs(startsFrom-closesAt)+1) + startsFrom)
+        }
+        // 2nd depth fn
+        this.generateCard = function (/* random salt */) {
+            return [suits[this.generateRandomNumber(suits.length - suits.length, suits.slice(1).length)],
+                values[this.generateRandomNumber(values.length - values.length, values.slice(1).length)]
+            ].join('-')
+        }
+
+        let DECK_SIZE = 54
+        let deck = []
+
+        // root fn
+        this.constructDeck = function () {
+            for(let i = 0; i < DECK_SIZE; i++) {
+                // definition
+
+                // filling deck
+                for(let card = this.generateCard(/* random salt */);
+                    deck.length <= DECK_SIZE;
+                    (card = this.generateCard(/* random salt */))
+                ) {
+                    if(deck.indexOf(card) === NOT_FOUND_POINTER) {
+                        deck.push(card)
+                    }
+                }
+            }
+        }
+
+        // shuffled cards
+        let fabricDeck = []
+        for(let i = 0; i < suits.length; i++) {
+            for(let j = 0; j < values.length; j++) {
+                let card = `${suits[i]}-${values[j]}`
+                fabricDeck.push(card)
+            }
+        }
+
+        let shuffleIterationsCount = 100
+        this.shuffleDeck = function () {
+            let newDeck = fabricDeck.slice(fabricDeck.length - fabricDeck.length)
+            for(let i = 0; i < shuffleIterationsCount; i++) {
+                let pointer = this.generateRandomNumber(fabricDeck.length - fabricDeck.length, fabricDeck.slice(1).length)
+
+                newDeck = [].concat(
+                    newDeck.slice(pointer, fabricDeck.slice(1).length),
+                    newDeck.slice(fabricDeck.length - fabricDeck.length, pointer)
+                )
+            }
+            deck = newDeck
+        }
+        let DECK_SIZE_COMPOSED = 52
+
+        let tilesDeck = []
+        for(let i = 0; i < suits.length; i++) {
+            for(let j = 0; j < values.length; j++) {
+                let card = `${suits[i]}-${values[j]}`
+                tilesDeck.push(card)
+            }
+        }
+
+        this.constructDeckFromTiles = function () {
+            let newDeck = []
+            let composedDeck =  tilesDeck.slice(tilesDeck.length - tilesDeck.length)
+            for(let card = tilesDeck[this.generateRandomNumber(composedDeck.length - composedDeck.length, composedDeck.slice(1).length)]; newDeck.length < DECK_SIZE_COMPOSED;
+                card = tilesDeck[this.generateRandomNumber(composedDeck.length - composedDeck.length, composedDeck.slice(1).length)]
+            ) {
+                newDeck.push(composedDeck.splice(composedDeck.indexOf(card), 1)[composedDeck.length - composedDeck.length])
+            }
+            // while replaces
+
+            deck = newDeck
+        }
+
+        this.allocateCards = function () {
+            const EMPTY_CONTENT = ''
+
+            document.querySelector('.deck-place').innerHTML = EMPTY_CONTENT
+
+            for(let i = 0; i < deck.length; i++) {
+                const element = document.createElement('div')
+                element.classList.add('card')
+                element.dataset['cardIndex'] = `${i}`
+                element.dataset['cardValue'] = `${deck[i]}`
+
+                let card = document.createElement('div')
+                card.classList.add(element.dataset['cardValue'])
+
+                element.append(card)
+
+                document.querySelector('.deck-place').appendChild(element)
+            }
+
+        }
+        let colsCards = [[], [], [], [], [], []]
+        this.spreadCardsBetweenCols = function () {
+            for (let i = 0; i < 3; i++) {
+                // ?
+                debugger
+                colsCards[0].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+            for(let i = 0; i < 6; i++) {
+                colsCards[1].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+            for(let i = 0; i < 6; i++) {
+                colsCards[2].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+            for(let i = 0; i < 6; i++) {
+                colsCards[3].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+            for(let i = 0; i < 6; i++) {
+                colsCards[4].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+            for(let i = 0; i < 6; i++) {
+                colsCards[5].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
+            }
+        }
+
+        this.allocateCardsInCols = function () {
+            let col = document.querySelector('.place-for-card-doubled').querySelector('.place-for-card')
+            for(let i = 0; i < colsCards[0].length;) {
+                let element = document.createElement('div')
+                element.classList.add('card')
+
+                // element.dataset['cardIndex'] = `${i}`
+                element.dataset['cardValue'] = `${colsCards[0].splice(i, 1)[colsCards.length - colsCards.length]}`
+
+                debugger;
+                let card = document.createElement('div')
+                card.classList.add(element.dataset['cardValue'])
+                card.classList.add('opened')
+
+                element.appendChild(card)
+
+                col.appendChild(element)
+
+
+            }
+
+            for(let elements = document.querySelectorAll('.place-for-card-doubled'), i = 0; i < elements.length; i++) {
+                if([1,2,3,4,5].indexOf(i) !== -1) {
+                    // keep
+                } else {
+                    continue
+                }
+                debugger;
+                for(let k = 0; k < colsCards[i].length;) {
+                    const element = document.createElement('div')
+                    element.classList.add('card')
+                    // element.dataset['cardIndex'] = `${i}`
+                    element.dataset['cardValue'] = `${colsCards[i].splice(0, 1)[colsCards.length - colsCards.length]}`
+                    // \\
+                    let card = document.createElement('div');
+                    card.classList.add(element.dataset['cardValue'])
+                    card.classList.add('opened')
+                    element.appendChild(card)
+
+                    Array.from(elements).splice(i, 1)[elements.length - elements.length].querySelector('.place-for-card').appendChild(element)
+                }
+            }
+        }
+        // generating deck
+
+        this.assignEvents = function () {
+            let possibleCard = undefined
+            let selectedCard = undefined
+            let selectedPlaceForCard = undefined
+
+            for(let cards = document.querySelectorAll('.card'), i = 0; i < cards.length; i++) {
+                cards[i].draggable = true;
+                cards[i].ondrag = function(event) {
+                    console.log("drag", event)
+                    selectedCard = event.srcElement
+                }
+                cards[i].ondragend = function(event) {
+                    console.log("ondragend", event)
+                    selectedCard = undefined
+
+                    possibleCard.querySelector('>div').classList.add('opened')
+                    selectedPlaceForCard.appendChild(possibleCard)
+
+                    // position
+                }
+            }
+
+            for(let listPlaceForCard = document.querySelectorAll('.place-for-card'), i = 0; i < listPlaceForCard.length; i++) {
+                listPlaceForCard[i].draggable = true
+
+                listPlaceForCard[i].ondragover = function(event) {
+                    possibleCard = selectedCard
+
+                    if(event.target.classList.contains('place-for-card')) {
+                        selectedPlaceForCard = event.target
+                        event.target.style['border'] = '1px solid'
+                    }
+                }
+                listPlaceForCard[i].ondragleave = function(event) {
+                    console.log("dragleave", event)
+                    // event.target.style['border'] = 'initial'
+
+                    // cause it handles this zone responsibility
+                    setTimeout(() => {
+                        selectedPlaceForCard = undefined
+                    }, 100)
+                }
+            }
+        }
+    }
+
+
+</script>
+
+<script>
+    let possibleCard = undefined
+    let selectedCard = undefined
+    let selectedPlaceForCard = undefined
+
+    for(let cards = document.querySelectorAll('.card'), i = 0; i < cards.length; i++) {
+        cards[i].draggable = true;
+        cards[i].ondrag = function(event) {
+            console.log("drag", event)
+            selectedCard = event.srcElement
+        }
+        cards[i].ondragend = function(event) {
+            console.log("ondragend", event)
+            selectedCard = undefined
+
+            selectedPlaceForCard.appendChild(possibleCard)
+        }
+    }
+
+    for(let listPlaceForCard = document.querySelectorAll('.place-for-card'), i = 0; i < listPlaceForCard.length; i++) {
+        listPlaceForCard[i].draggable = true
+
+        listPlaceForCard[i].ondragover = function(event) {
+            possibleCard = selectedCard
+
+            selectedPlaceForCard = event.target
+            event.target.style['border'] = '1px solid'
+        }
+        listPlaceForCard[i].ondragleave = function(event) {
+            console.log("dragleave", event)
+            event.target.style['border'] = 'initial'
+
+            // cause it handles this zone responsibility
+            setTimeout(() => {
+                selectedPlaceForCard = undefined
+            }, 100)
+        }
+    }
+
+
+</script>
+
+</body></html>
