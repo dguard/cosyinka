@@ -3,13 +3,14 @@
     <style>
         .game-board {
             display: flex;
-            overflow-y: auto;
+            /*overflow-y: auto;*/
         }
 
         .deck-place {
             position: relative;
             width: 200px;
             height: 250px;
+            background-color: #dedede;
 
             margin-right: 40px;
         }
@@ -18,6 +19,11 @@
             height: 250px;
             background: lightblue;
             margin-bottom: 10px;
+        }
+        .card > div {
+            background-image: url(img/card-default.png);
+            width: 74px;
+            height: 115px;
         }
         .clovers-a.opened {
             background-image: url(img/card-deck-161536_960_720.png);
@@ -572,6 +578,7 @@
             <div class="card"></div>
             <div class="card"></div>
 
+            <div class="tried-cards"></div>
         </div>
 
         <div class="game-zone">
@@ -598,9 +605,9 @@
     <br/>
 
     <div class="sandbox">
-        <div class="card">
-            <div class="clovers-a opened"></div>
-        </div>
+<!--        <div class="card">-->
+<!--            <div class="clovers-a opened"></div>-->
+<!--        </div>-->
 <!--        <div class="card">-->
 <!--            <div class="clovers-2 opened"></div>-->
 <!--        </div>-->
@@ -638,9 +645,9 @@
 <!--            <div class="clovers-k opened"></div>-->
 <!--        </div>-->
 
-        <div class="card">
-            <div class="hearts-a opened"></div>
-        </div>
+<!--        <div class="card">-->
+<!--            <div class="hearts-a opened"></div>-->
+<!--        </div>-->
 <!--        <div class="card">-->
 <!--            <div class="hearts-2 opened"></div>-->
 <!--        </div>-->
@@ -678,9 +685,9 @@
 <!--            <div class="hearts-k opened"></div>-->
 <!--        </div>-->
 
-        <div class="card">
-            <div class="tiles-a opened"></div>
-        </div>
+<!--        <div class="card">-->
+<!--            <div class="tiles-a opened"></div>-->
+<!--        </div>-->
 
 <!--        <div class="card">-->
 <!--            <div class="tiles-2 opened"></div>-->
@@ -719,9 +726,9 @@
 <!--            <div class="tiles-k opened"></div>-->
 <!--        </div>-->
 
-        <div class="card">
-            <div class="spikes-a opened"></div>
-        </div>
+<!--        <div class="card">-->
+<!--            <div class="spikes-a opened"></div>-->
+<!--        </div>-->
 <!--        <div class="card">-->
 <!--            <div class="spikes-2 opened"></div>-->
 <!--        </div>-->
@@ -870,15 +877,18 @@
 
             document.querySelector('.deck-place').innerHTML = EMPTY_CONTENT
 
-            for(let i = 0; i < deck.length; i++) {
+            for(let k = 0; k < deck.length;) {
                 const element = document.createElement('div')
                 element.classList.add('card')
-                element.dataset['cardIndex'] = `${i}`
-                element.dataset['cardValue'] = `${deck[i]}`
+                // element.dataset['cardIndex'] = `${i}`
+                element.dataset['cardValue'] = `${deck.splice(k, 1)[deck.length - deck.length]}`
 
                 let card = document.createElement('div')
                 card.classList.add(element.dataset['cardValue'])
 
+                if(deck.length === 0) {
+                    card.classList.add('opened')
+                }
                 element.append(card)
 
                 document.querySelector('.deck-place').appendChild(element)
@@ -889,7 +899,6 @@
         this.spreadCardsBetweenCols = function () {
             for (let i = 0; i < 3; i++) {
                 // ?
-                debugger
                 colsCards[0].push(deck.splice(deck.slice(1).length, 1)[deck.length - deck.length])
             }
             for(let i = 0; i < 6; i++) {
@@ -918,10 +927,14 @@
                 // element.dataset['cardIndex'] = `${i}`
                 element.dataset['cardValue'] = `${colsCards[0].splice(i, 1)[colsCards.length - colsCards.length]}`
 
-                debugger;
                 let card = document.createElement('div')
                 card.classList.add(element.dataset['cardValue'])
-                card.classList.add('opened')
+
+                if(i < 4) {
+                    // keep
+                } else {
+                    card.classList.add('opened')
+                }
 
                 element.appendChild(card)
 
@@ -936,7 +949,6 @@
                 } else {
                     continue
                 }
-                debugger;
                 for(let k = 0; k < colsCards[i].length;) {
                     const element = document.createElement('div')
                     element.classList.add('card')
@@ -945,7 +957,16 @@
                     // \\
                     let card = document.createElement('div');
                     card.classList.add(element.dataset['cardValue'])
-                    card.classList.add('opened')
+
+                    // if(i < 4) {
+                    //     keep
+                    // } else {
+                    //     card.classList.add('opened')
+                    // }
+                    if([1,0].indexOf(colsCards[i].length) !== -1) {
+                        card.classList.add('opened')
+                    }
+
                     element.appendChild(card)
 
                     Array.from(elements).splice(i, 1)[elements.length - elements.length].querySelector('.place-for-card').appendChild(element)
@@ -961,6 +982,35 @@
 
             for(let cards = document.querySelectorAll('.card'), i = 0; i < cards.length; i++) {
                 cards[i].draggable = true;
+                cards[i].onclick = function (event) {
+                    let shownCard = undefined
+                    for(let availablePlaceForCards = document.querySelectorAll('.place-for-card'), i = 0; i < availablePlaceForCards.length; i++) {
+                        if(Array.from(availablePlaceForCards[i].children).indexOf(event.currentTarget) === Array.from(availablePlaceForCards[i].children).slice(1).length) {
+                            shownCard = event.currentTarget
+                            break
+                        }
+                    }
+                    if(shownCard) {
+                        // keep
+                    } else if(Array.from(document.querySelector('.deck-place').children).indexOf(event.currentTarget) !== -1) {
+                        // continue keep
+                    } else {
+                        return
+                    }
+
+                    if(event.currentTarget.querySelector('div').classList.contains('opened')) {
+                        // keep
+                    } else {
+                        event.currentTarget.querySelector('div').classList.add('opened')
+                        return
+                    }
+
+                    // click to move card around
+                    event.currentTarget.querySelector('div').classList.remove('opened')
+                    document.querySelector('.deck-place').prepend(event.currentTarget)
+
+                }
+
                 cards[i].ondrag = function(event) {
                     console.log("drag", event)
                     selectedCard = event.srcElement
@@ -969,9 +1019,34 @@
                     console.log("ondragend", event)
                     selectedCard = undefined
 
-                    possibleCard.querySelector('>div').classList.add('opened')
-                    selectedPlaceForCard.appendChild(possibleCard)
+                    possibleCard.querySelector('div').classList.add('opened')
 
+                    // drag highest and below
+                    let shownCard = document.querySelector('.deck-place').querySelector('.card:last-of-type')
+                    if(shownCard) {
+                        shownCard.querySelector('div').classList.add('opened')
+                    }
+
+                    let attachedCard = undefined
+                    for(let availablePlaceForCards = document.querySelectorAll('.place-for-card'), i = 0; i < availablePlaceForCards.length; i++) {
+                        if(Array.from(availablePlaceForCards[i].children).indexOf(possibleCard) !== -1) {
+                            let foundPos = Array.from(availablePlaceForCards[i].children).indexOf(possibleCard)
+
+                            // selectedPlaceForCard.appendChild(possibleCard)
+
+                            // keep
+                            for(let p = foundPos; p < Array.from(availablePlaceForCards[i].children).length;) {
+                                attachedCard = possibleCard
+                                selectedPlaceForCard.appendChild(availablePlaceForCards[i].children[foundPos])
+                            }
+                            return
+                        }
+                    }
+                    if(attachedCard) {
+                        // keep
+                    } else {
+                        selectedPlaceForCard.appendChild(possibleCard)
+                    }
                     // position
                 }
             }
@@ -982,10 +1057,87 @@
                 listPlaceForCard[i].ondragover = function(event) {
                     possibleCard = selectedCard
 
-                    if(event.target.classList.contains('place-for-card')) {
-                        selectedPlaceForCard = event.target
-                        event.target.style['border'] = '1px solid'
+                    // let containsPlaceForCard = false
+                    // document.querySelectorAll('.place-for-card').forEach((element) => {
+                    //     containsPlaceForCard = containsPlaceForCard || Array.from(element.children).indexOf(event.target)
+                    // })
+
+                    // let selectedPlaceForCard = event.target.classList.contains('place-for-card') ? event.target : undefined
+                    // document.querySelectorAll('.place-for-card').forEach((element) => {
+                    //     selectedPlaceForCard = selectedPlaceForCard || (Array.from(element.children).indexOf(event.target) !== -1 ? element : undefined)
+                    // })
+                    // document.querySelectorAll('.place-for-card').forEach((element) => {
+                    //     if(Array.from(element.children).indexOf(event.target) !== -1) {
+                    //     }
+                    // })
+
+
+                    // draft required
+                    for(let availablePlacesForCards = document.querySelectorAll('.place-for-card'), i = 0; i < availablePlacesForCards.length; i++) {
+                        if(Array.from(availablePlacesForCards[i].children).indexOf(event.target) !== -1) {
+                            selectedPlaceForCard = availablePlacesForCards[i]
+                            event.target.style['border'] = '1px solid'
+                            break;
+                        }
                     }
+
+                    for(let availablePlacesForCards = document.querySelectorAll('.place-for-card'), i = 0; i < availablePlacesForCards.length; i++) {
+                        if (Array.from(availablePlacesForCards[i].children).indexOf(event.target) !== -1
+                            && Array.from(availablePlacesForCards[i].children).indexOf(selectedCard) !== -1) {
+                            return
+                        }
+                    }
+
+                    if(selectedPlaceForCard) {
+                        // keep
+                    } else if(event.target.classList.contains('place-for-card')) {
+                        selectedPlaceForCard = event.target
+                        // event.target.style['border'] = '1px solid'
+                    }
+
+                    let latestCard = selectedPlaceForCard.querySelector('.card:last-of-type')
+                    // selectedCard
+
+                    // clovers, hearts, tiles, spikes
+                    if((['clovers', 'spikes'].indexOf(selectedCard.dataset['cardValue'].split('-')[0]) !== -1
+                        && ['hearts', 'tiles'].indexOf(latestCard.dataset['cardValue'].split('-')[0]) !== -1) || (
+                        ['hearts', 'tiles'].indexOf(selectedCard.dataset['cardValue'].split('-')[0]) !== -1
+                        && ['clovers', 'spikes'].indexOf(latestCard.dataset['cardValue'].split('-')[0]) !== -1
+                    )) {
+                        // keep
+                    } else {
+                        return
+                    }
+
+                    let possibleSelectedCards = ['a', '2', '3', '4', '5',' 6', '7', '8', '9', '10', 'j', 'q', 'k']
+                    let possibleLatestCards = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k']
+                    /*if(Math.abs(possibleSelectedCards.indexOf(selectedCard.split('-')[1]) - possibleLatestCards.indexOf(latestCard.split('-')[1])) === 1) {
+                        // keep
+                    } else {
+                        selectedPlaceForCard = undefined
+                    }*/
+
+                    if(typeof latestCard === 'undefined') {
+                        // keep
+                    } else if(possibleLatestCards.indexOf(latestCard.dataset['cardValue'].split('-')[1]) - possibleSelectedCards.indexOf(selectedCard.dataset['cardValue'].split('-')[1]) === 1 || (
+                        latestCard.dataset['cardValue'].split('-')[1] === '5'  && selectedCard.dataset['cardValue'].split('-')[1] === '6'
+                    ) ||  (
+                        latestCard.dataset['cardValue'].split('-')[1] === '6'  && selectedCard.dataset['cardValue'].split('-')[1] === '5'
+                    ) || (
+                        latestCard.dataset['cardValue'].split('-')[1] === '7'  && selectedCard.dataset['cardValue'].split('-')[1] === '6'
+                    ) ||  (
+                        latestCard.dataset['cardValue'].split('-')[1] === '6'  && selectedCard.dataset['cardValue'].split('-')[1] === '7'
+                    )) {
+                        // keep
+                    } /* else if(typeof latestCard === 'undefined') {
+                        // keep
+                    } */ else {
+                        selectedPlaceForCard = undefined
+                    }
+
+                    // drag highest and below
+
+                    // selectedPlaceForCard
                 }
                 listPlaceForCard[i].ondragleave = function(event) {
                     console.log("dragleave", event)
